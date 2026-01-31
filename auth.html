@@ -1,0 +1,55 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>FoodStore Login</title>
+</head>
+<body>
+
+<h2>Signup / Login</h2>
+
+<input id="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
+
+<select id="role">
+  <option value="user">User</option>
+  <option value="vendor">Vendor</option>
+</select>
+
+<button id="signupBtn">Signup</button>
+<button id="loginBtn">Login</button>
+
+<script type="module">
+  import { auth, db } from "./firebase.js";
+  import { createUserWithEmailAndPassword, signInWithEmailAndPassword } 
+  from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { doc, setDoc } 
+  from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const signup = async () => {
+    const email = email.value;
+    const password = password.value;
+    const role = role.value;
+
+    const userCred = await createUserWithEmailAndPassword(auth, email, password);
+
+    await setDoc(doc(db, "users", userCred.user.uid), {
+      uid: userCred.user.uid,
+      email,
+      role,
+      isVerified: role === "vendor" ? false : true
+    });
+
+    alert("Signup Successful!");
+  };
+
+  const login = async () => {
+    await signInWithEmailAndPassword(auth, email.value, password.value);
+    location.href = "dashboard.html";
+  };
+
+  signupBtn.addEventListener("click", signup);
+  loginBtn.addEventListener("click", login);
+</script>
+
+</body>
+</html> -->

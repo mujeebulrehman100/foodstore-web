@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FoodStore</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="landing-body">
+
+  <!-- LANDING PAGE -->
+  <div class="landing-container">
+
+    <!-- LEFT CONTENT -->
+    <div class="landing-text">
+      <h1>🍔 FoodStore</h1>
+      <p>
+        Order food online,  
+        Vendors sell food,  
+        Admin manages everything.  
+      </p>
+    </div>
+
+    <!-- RIGHT CARD -->
+    <div class="auth-card">
+      <h2>Login / Signup</h2>
+
+      <input id="email" placeholder="Email">
+      <input id="password" type="password" placeholder="Password">
+
+      <select id="role">
+        <option value="user">User</option>
+        <option value="vendor">Vendor</option>
+      </select>
+
+      <button id="signupBtn" class="btn primary">Signup</button>
+      <button id="loginBtn" class="btn secondary">Login</button>
+    </div>
+
+  </div>
+
+<script type="module">
+import { auth, db } from "./firebase.js";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { doc, setDoc, getDoc } 
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+window.signup = async () => {
+  try {
+    const e = email.value;
+    const p = password.value;
+    const r = role.value;
+
+    const userCred = await createUserWithEmailAndPassword(auth, e, p);
+
+    await setDoc(doc(db, "users", userCred.user.uid), {
+      uid: userCred.user.uid,
+      email: e,
+      role: r,
+      isVerified: r === "vendor" ? false : true
+    });
+
+    if(r === "vendor") location.href = "vendor.html";
+    else location.href = "user.html";
+
+  } catch(err) {
+    alert(err.message);
+  }
+};
+
+window.login = async () => {
+  try {
+    const userCred = await signInWithEmailAndPassword(auth, email.value, password.value);
+    const snap = await getDoc(doc(db,"users",userCred.user.uid));
+    const role = snap.data().role;
+
+    if(role === "vendor") location.href = "vendor.html";
+    else location.href = "user.html";
+
+  } catch(err) {
+    alert(err.message);
+  }
+};
+
+signupBtn.onclick = signup;
+loginBtn.onclick = login;
+</script>
+
+</body>
+</html>

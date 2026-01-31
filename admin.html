@@ -1,0 +1,82 @@
+<!-- <h2>Admin Panel</h2>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { collection, query, where, getDocs, updateDoc, doc }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const q = query(collection(db,"users"),
+  where("role","==","vendor"),
+  where("isVerified","==",false)
+);
+
+const snap = await getDocs(q);
+
+snap.forEach(v=>{
+  const b=document.createElement("button");
+  b.innerText="Verify "+v.data().email;
+  b.onclick=()=>updateDoc(doc(db,"users",v.id),{isVerified:true});
+  document.body.appendChild(b);
+});
+</script> -->
+<!-- <h2>Admin Panel</h2>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { collection, query, where, getDocs, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+async function loadVendors(){
+  const q = query(collection(db,"users"), where("role","==","vendor"), where("isVerified","==",false));
+  const snap = await getDocs(q);
+
+  snap.forEach(v => {
+    const btn = document.createElement("button");
+    btn.innerText = "Verify " + v.data().email;
+    btn.onclick = async () => {
+      await updateDoc(doc(db,"users",v.id), { isVerified: true });
+      alert("Vendor Verified!");
+      btn.disabled = true;
+    };
+    document.body.appendChild(btn);
+    document.body.appendChild(document.createElement("br"));
+  });
+}
+
+loadVendors();
+</script> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h2>Admin Panel</h2>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { collection, query, where, getDocs, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+async function loadVendors() {
+  const q = query(collection(db,"users"), where("role","==","vendor"), where("isVerified","==",false));
+  const snap = await getDocs(q);
+
+  snap.forEach(v => {
+    const btn = document.createElement("button");
+    btn.innerText = "Verify " + v.data().email;
+    btn.onclick = async () => {
+      await updateDoc(doc(db,"users",v.id), { isVerified: true });
+      alert("Vendor Verified!");
+      btn.disabled = true;
+    };
+    document.body.appendChild(btn);
+    document.body.appendChild(document.createElement("br"));
+  });
+}
+
+loadVendors();
+</script>
+</body>
+</html>

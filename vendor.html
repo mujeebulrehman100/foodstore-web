@@ -1,0 +1,114 @@
+<!-- <input id="name" placeholder="Food Name">
+<input id="price" placeholder="Price">
+<button onclick="addItem()">Add</button>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { addDoc, collection }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+window.addItem = async ()=>{
+  await addDoc(collection(db,"items"),{
+    name:name.value,
+    price:Number(price.value)
+  });
+  alert("Item Added");
+};
+</script> -->
+<!-- <h2>Vendor Dashboard</h2>
+
+<input id="name" placeholder="Food Name">
+<input id="price" placeholder="Price">
+<button onclick="addItem()">Add</button>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+window.addItem = async () => {
+  try {
+    await addDoc(collection(db,"items"),{
+      name: document.getElementById("name").value,
+      price: Number(document.getElementById("price").value)
+    });
+    alert("Item Added!");
+  } catch(err) {
+    console.error(err);
+    alert("Add Item Error: " + err.message);
+  }
+};
+</script> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vendor Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="vendor-body">
+
+  <div class="vendor-container">
+
+    <!-- LEFT TEXT -->
+    <div class="vendor-text">
+      <h1>🍽 Vendor Panel</h1>
+      <p>
+        Add your food items here.  
+        Customers will see them instantly  
+        in the marketplace.
+      </p>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="vendor-card">
+      <h2>Add New Item</h2>
+
+      <input id="name" placeholder="Food Name">
+      <input id="price" placeholder="Price">
+      <input id="imageURL" placeholder="Image URL">
+
+      <button onclick="addItem()" class="btn primary">
+        Add Item
+      </button>
+    </div>
+
+  </div>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  window.addItem = async () => {
+  // ids & classes SAME — only JS fix
+  const nameEl = document.getElementById("name");
+  const priceEl = document.getElementById("price");
+  const imageEl = document.getElementById("imageURL");
+
+  const name = nameEl.value.trim();
+  const price = Number(priceEl.value);
+  const imageURL = imageEl.value.trim();
+
+  if (!name || !price || !imageURL) {
+    alert("All fields are required!");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "items"), { name, price, imageURL });
+    alert("Item Added Successfully!");
+
+    // clear inputs (ERROR FIX)
+    nameEl.value = "";
+    priceEl.value = "";
+    imageEl.value = "";
+
+  } catch (err) {
+    alert(err.message);
+  }
+};
+</script>
+
+</body>
+</html>

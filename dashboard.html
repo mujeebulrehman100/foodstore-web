@@ -1,0 +1,60 @@
+<!-- <script type="module">
+import { auth, db } from "./firebase.js";
+import { onAuthStateChanged }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { doc, getDoc }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+onAuthStateChanged(auth, async user => {
+  if (!user) return location.href = "index.html";
+
+  const snap = await getDoc(doc(db, "users", user.uid));
+  const role = snap.data().role;
+
+  if (role === "admin") location.href = "admin.html";
+  else if (role === "vendor") location.href = "vendor.html";
+  else location.href = "user.html";
+});
+</script> -->
+
+<!-- <script type="module">
+import { auth, db } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+onAuthStateChanged(auth, async user => {
+  if(!user) return location.href="index.html";
+
+  const snap = await getDoc(doc(db,"users",user.uid));
+  const role = snap.data().role;
+
+  if(role==="admin") location.href="admin.html";
+  else if(role==="vendor") location.href="vendor.html";
+  else location.href="user.html";
+});
+</script> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+</head>
+<body>
+<script type="module">
+import { auth, db } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+onAuthStateChanged(auth, async user => {
+  if(!user) return location.href="index.html";
+  const snap = await getDoc(doc(db,"users",user.uid));
+  const role = snap.data().role;
+
+  if(role==="admin") location.href="admin.html";
+  else if(role==="vendor") location.href="vendor.html";
+  else location.href="user.html";
+});
+</script>
+</body>
+</html>
