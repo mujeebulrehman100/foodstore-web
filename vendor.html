@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +41,7 @@ import { db } from "./firebase.js";
 import { addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
   window.addItem = async () => {
-  // ids & classes SAME — only JS fix
+
   const nameEl = document.getElementById("name");
   const priceEl = document.getElementById("price");
   const imageEl = document.getElementById("imageURL");
@@ -60,7 +59,7 @@ import { addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.1/fi
     await addDoc(collection(db, "items"), { name, price, imageURL });
     alert("Item Added Successfully!");
 
-    // clear inputs (ERROR FIX)
+
     nameEl.value = "";
     priceEl.value = "";
     imageEl.value = "";
